@@ -1,6 +1,7 @@
+import Header from "../components/Header";
 const App = ({ Component, pageProps }) => {
     return <>
-    <p>I'm a header</p>
+        <Header />
         <Component {...pageProps} />
     </>
 }
