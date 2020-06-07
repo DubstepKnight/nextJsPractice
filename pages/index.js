@@ -1,12 +1,15 @@
 import axios from 'axios';
 import useSWR from 'swr';
+import Card from 'components/Card'
 
-export default function Home({ movies }) {
+export default function Home() {
   const { data: todos, error } = useSWR("https://jsonplaceholder.typicode.com/todos", fetcher)
   console.log(error, todos);
   return (
     <div className="container">
-      
+      {
+        // todos.map(todo => <Card key={todo.id} todo={todo}/>)
+      }
     </div>
   )
 }
@@ -19,7 +22,7 @@ export default function Home({ movies }) {
     try{
       const {data} = await axios.get(URL);
       console.log("fetcher", data);
-      resolve({ data })
+      resolve(data)
 
     }
     catch(error){
