@@ -1,6 +1,9 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-
+import fetch from 'isomorphic-unfetch'
 export default (req, res) => {
-  res.statusCode = 200
-  res.json({ name: 'John Doe', test: 'success' })
+  fetch(`https://jsonplaceholder.typicode.com/todos`)
+      .then(resp => resp.json())
+      .then(data => {
+        console.log(data)
+        res.json(data)
+      })
 }
