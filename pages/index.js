@@ -1,54 +1,24 @@
 import axios from 'axios';
-import useSWR from 'swr';
 import Card from 'components/Card'
+import useRequest from "../libs/useRequest"
 
 export default function Home() {
-  const { data: todos, error } = useSWR("https://jsonplaceholder.typicode.com/todos", fetcher)
-  console.log(error, todos);
+  const { data } = useRequest({
+    url: '/api/hello'
+  });
   return (
-    <div className="container">
-      {
-        // todos.map(todo => <Card key={todo.id} todo={todo}/>)
-      }
+    <div style={{ textAlign: 'center' }}>
+      <h1>Nah bruh</h1>
+      <div>
+        {data
+          ? data.map(({ title, id }) => (
+              <p key={id}>
+                {title}
+              </p>
+            ))
+          : 'loading...'}
+      </div>
     </div>
   )
 }
 
-
- function fetcher(URL){
-   console.log("running the fetcher ...");
-  console.log(URL);
-  return new Promise(async (resolve, reject) => {
-    try{
-      const {data} = await axios.get(URL);
-      console.log("fetcher", data);
-      resolve(data)
-
-    }
-    catch(error){
-      console.log("fetcher", error);
-      reject({ error })
-
-    }
-  });
-}
-
-// export async function getServerSideProps(){
-//   try{
-//     const { API_URL } = process.env;
-//     const todosURL = `${API_URL}/todos`;
-//     console.log(todosURL)
-//     const res = await axios.get(todosURL);
-//     console.log(res);
-//     // const data = await res.json();
-
-//     // return {
-//     //   props:{
-//     //     todos: data
-//     //   }
-//     // }
-//   }
-//   catch(err){
-//     console.error(err)
-//   }
-// }
